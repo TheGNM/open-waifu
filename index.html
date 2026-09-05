@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Yume</title>
+<link rel="stylesheet" href="/static/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.2/marked.min.js"></script>
+</head>
+<body class="dark">
+
+<h2>💬 Yume <span id="moodDot"></span></h2>
+
+<div id="statusRow">
+  <span id="streakDisplay">🔥 0 day streak</span>
+  <span title="Server status">
+    <span id="healthDot"></span> Status
+  </span>
+</div>
+
+<div id="topBar">
+  <button class="iconBtn" onclick="sendIcebreaker()">💡 Icebreaker</button>
+  <button class="iconBtn" onclick="toggleMemoryPanel()">🧠 Memory</button>
+  <button class="iconBtn" onclick="toggleSettings()">⚙ Settings</button>
+  <button class="iconBtn" onclick="exportChat()">⬇ Export</button>
+  <button class="iconBtn" onclick="resetChat()">🗑 Reset</button>
+</div>
+
+<div id="memoryPanel">
+  <div class="memHeaderRow">
+    <strong>Memories (<span id="memCount">0</span>)</strong>
+    <div>
+      <button class="iconBtn" onclick="backupDB()">⬇ Backup</button>
+      <input type="file" id="restoreFile" style="display:none" onchange="restoreDB(this)">
+      <button class="iconBtn" onclick="document.getElementById('restoreFile').click()">⬆ Restore</button>
+    </div>
+  </div>
+  <div class="memAddRow">
+    <input type="text" id="manualMemInput" placeholder="Add something for Yume to remember...">
+    <button class="iconBtn" onclick="addManualMemory()">Add</button>
+  </div>
+  <div id="memList"></div>
+</div>
+
+<div id="settingsPanel">
+  <div class="settingRow">
+    <span>Theme</span>
+    <select id="themeSelect" onchange="setTheme(this.value)">
+      <option value="dark">Dark</option>
+      <option value="light">Light</option>
+    </select>
+  </div>
+
+  <div class="settingRow">
+    <span>Response length</span>
+    <select id="lengthSelect" onchange="saveSettings()">
+      <option value="short">Short</option>
+      <option value="normal" selected>Normal</option>
+      <option value="long">Detailed</option>
+    </select>
+  </div>
+
+  <div class="settingRow">
+    <span>Temperature: <span id="tempVal">0.8</span></span>
+    <input type="range" id="tempSlider" min="0.3" max="1.2" step="0.05" value="0.8"
+      oninput="document.getElementById('tempVal').textContent=this.value; saveSettings();">
+  </div>
+
+  <div class="settingRow">
+    <span>Mood indicator</span>
+    <label class="toggleSwitch">
+      <input type="checkbox" id="moodToggle" checked onchange="saveSettings()">
+      <span class="slider"></span>
+    </label>
+  </div>
+
+  <div class="settingRow">
+    <span>Idle check-ins</span>
+    <label class="toggleSwitch">
+      <input type="checkbox" id="idleToggle" checked onchange="saveSettings(); resetIdleTimer();">
+      <span class="slider"></span>
+    </label>
+  </div>
+
+  <div class="settingRow">
+    <span>Idle delay: <span id="idleVal">2</span> min</span>
+    <input type="range" id="idleSlider" min="1" max="10" step="1" value="2"
+      oninput="document.getElementById('idleVal').textContent=this.value; saveSettings(); resetIdleTimer();">
+  </div>
+
+  <div class="settingRow">
+    <span>Clear saved chat (this browser only)</span>
+    <button class="iconBtn" onclick="clearLocalChat()">Clear</button>
+  </div>
+</div>
+
+<div id="chatbox"></div>
+<div id="regenRow">
+  <button class="iconBtn" id="regenBtn" onclick="regenerate()" style="display:none;">🔄 Regenerate last reply</button>
+</div>
+
+<div id="inputRow">
+  <input type="text" id="userInput" placeholder="Type a message..." autocomplete="off" />
+  <button id="sendBtn">Send</button>
+</div>
+
+<audio id="audioPlayer" controls></audio>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
