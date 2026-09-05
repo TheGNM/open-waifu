@@ -51,8 +51,8 @@ pipx install uv
 
 ### 4. Clone this repo
 ```bash
-git clone <your-repo-url> yume
-cd yume
+git clone https://github.com/TheGNM/open-waifu
+cd open-waifu
 ```
 
 ### 5. Set up the Python environment
