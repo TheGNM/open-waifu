@@ -248,3 +248,9 @@ To back up or restore memory instead of wiping it, use the **Memory panel** in t
 ## License
 
 This project's own code is licensed under the **MIT License**. Third-party models and assets listed above retain their own separate licenses — check each before public release or commercial use.
+
+---
+
+## Note
+
+This project uses supports AI to make it possible
