@@ -253,4 +253,4 @@ This project's own code is licensed under the **MIT License**. Third-party model
 
 ## Note
 
-This project partially use with AI to support and make this some how working.
+Parts of this project were built with AI assistance (e.g. debugging, boilerplate, and documentation), with development and testing done by me.
